@@ -1,0 +1,48 @@
+<style>
+  #map, #listings {
+    display: inline-block;
+    vertical-align: top;
+    height: 500px;
+  }
+
+  #map {
+    width: 66%;
+  }
+
+  #listings {
+    width: 33%;
+    background-color: lightgray;
+  }
+
+  #listings h1 {
+    background: white;
+    text-align: center;
+    padding: 5px;
+  }
+</style>
+
+<div class="map-container">
+  <div id='map'></div>
+  <div id='listings'>
+    <h1>Our locations</h1>
+    <div class="results"></div>
+  </div>
+</div>
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZmFybWVyd2lsbGllcyIsImEiOiJqTEFZd3d3In0.GBgh7oDoeAgvuHUlJdLJSQ';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/farmerwillies/cjh59ph8d3w0s2rnw4z4vfmaw'
+  });
+
+  map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+  }));
+
+  map.addControl(new mapboxgl.NavigationControl({
+    showZoom: true
+  }), 'top-left');
+
+  map.addSource('ciuswskmy004x2toe6yqjbpz6');
+</script>
