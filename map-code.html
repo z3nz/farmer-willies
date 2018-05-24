@@ -61,7 +61,7 @@
     showZoom: true
   }), 'top-left');
 
-  $.getJSON('https://cdn.rawgit.com/z3nz/farmer-willies/d43667dc/features.geojson')
+  $.getJSON('https://cdn.rawgit.com/z3nz/farmer-willies/198d20b7/features.geojson')
     .done(function (data) {
       map.on('load', function () {
         map.addSource('the-goods', {
@@ -91,7 +91,7 @@
     });
 
   function getId(props) {
-    var id = props.description || props.place_name || props.title || '';
+    var id = props.title || props.A_A_B_C_D || '';
     return id.toLowerCase().replace(/[^0-9a-z-]/g, '');
   }
 
@@ -108,7 +108,7 @@
 
     var popup = new mapboxgl.Popup({ closeOnClick: false })
       .setLngLat(currentFeature.geometry.coordinates)
-      .setHTML('<h3>' + currentFeature.properties.title + '</h3>' + '<br>' + '<p>' + currentFeature.properties.description + '</p>')
+      .setHTML('<h3>' + currentFeature.properties.title + '</h3>' + '<br>' + '<p>' + currentFeature.properties.A_A_B_C_D + '</p>')
       .addTo(map);
   }
 
@@ -125,7 +125,7 @@
       // Shorten data.feature.properties to just `prop` so we're not
       // writing this long form over and over again.
       var prop = currentFeature.properties;
-      var id = getId(prop)
+      var id = getId(prop);
 
       // Make sure not to keep appending the same location
       if ($('#' + id).length) continue;
@@ -146,7 +146,7 @@
       // Create a new div with the class 'details' for each store
       // and fill it with the city
       var details = listing.appendChild(document.createElement('div'));
-      details.innerHTML = prop.description;
+      details.innerHTML = prop.A_A_B_C_D;
 
       // Add an event listener for the links in the sidebar listing
       link.addEventListener('click', function (e) {
