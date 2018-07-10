@@ -36,6 +36,26 @@
   #listings #results .item.active {
     background-color: whitesmoke;
   }
+
+  @media only screen and (max-width: 768px) {
+    #listings {
+      display: none;
+    }
+
+    .map-container {
+      margin: 0px -34px;
+    }
+
+    #map {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 640px) {
+    .map-container {
+      margin: 0px -20px;
+    }
+  }
 </style>
 
 <div class="map-container">
@@ -61,7 +81,7 @@
     showZoom: true
   }), 'top-left');
 
-  $.getJSON('https://cdn.rawgit.com/z3nz/farmer-willies/198d20b7/features.geojson')
+  $.getJSON('https://cdn.rawgit.com/z3nz/farmer-willies/04840f76/features.geojson')
     .done(function (data) {
       map.on('load', function () {
         map.addSource('the-goods', {
@@ -91,7 +111,7 @@
     });
 
   function getId(props) {
-    var id = props.title || props.A_A_B_C_D || '';
+    var id = props.title || props.Title || props['Address components'] || '';
     return id.toLowerCase().replace(/[^0-9a-z-]/g, '');
   }
 
@@ -108,7 +128,7 @@
 
     var popup = new mapboxgl.Popup({ closeOnClick: false })
       .setLngLat(currentFeature.geometry.coordinates)
-      .setHTML('<h3>' + currentFeature.properties.title + '</h3>' + '<br>' + '<p>' + currentFeature.properties.A_A_B_C_D + '</p>')
+      .setHTML('<h3>' + (currentFeature.properties.title || currentFeature.properties.Title) + '</h3>' + '<br>' + '<p>' + currentFeature.properties['Address components'] + '</p>')
       .addTo(map);
   }
 
@@ -141,12 +161,12 @@
       link.href = '#';
       link.className = 'title';
       link.dataPosition = i;
-      link.innerHTML = prop.title;
+      link.innerHTML = prop.title || prop.Title;
 
       // Create a new div with the class 'details' for each store
       // and fill it with the city
       var details = listing.appendChild(document.createElement('div'));
-      details.innerHTML = prop.A_A_B_C_D;
+      details.innerHTML = prop['Address components'];
 
       // Add an event listener for the links in the sidebar listing
       link.addEventListener('click', function (e) {
